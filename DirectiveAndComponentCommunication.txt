@@ -1,0 +1,32 @@
+import {Component, HostListener, Directive, EventEmitter, Output, Input} from 'angular2/core';
+
+@Directive({ selector: 'button[counting]' })
+class CountClicks {
+  @Input('aa') numberOfClicks = 0;
+  @Output() ev = new EventEmitter();
+  @HostListener('click', ['$event.target'])
+  onClick(btn) {
+    console.log("button", btn, "number of clicks:", this.numberOfClicks++);
+    this.ev.emit({ value: this.numberOfClicks });
+  }
+}
+@Component({
+  selector: 'my-app',
+  template: `<button  counting [aa]="de" (ev)="check($event)">Increment</button>
+  <input [(ngModel)]="abc" placeholder="number of clicks" (keyup)="change($event.target.value)">`,
+  directives: [CountClicks]
+})
+export class AppComponent {
+  abc: number;
+  de: number = 0;
+  constructor() { console.clear(); }
+  check(event) {
+    console.log('check');
+    console.log(event);
+    this.abc = event.value;
+  }
+  change(value) {
+    console.log(value);
+    this.de = value;
+  }
+}
