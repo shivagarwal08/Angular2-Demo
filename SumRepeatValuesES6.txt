@@ -1,0 +1,22 @@
+let inputA = [{'A':50},{'B':60},{'B':42},{'A':25}];
+let temp = {};
+for(let i=0; i<inputA.length; i++){
+	let o = inputA[i];
+  	let k = Object.keys(o)[0];
+  if(temp[k]){
+    temp[k] = temp[k]+o[k];
+  }else{
+    temp[k]=o[k];
+  }  	
+}
+
+let outputA = [];
+for(let aa in temp){
+  let ob = {};
+  ob[aa] = temp[aa];
+  outputA.push(ob); 
+}
+console.log(outputA[0]['A']);
+console.log(outputA[1]['B']);
+
+
